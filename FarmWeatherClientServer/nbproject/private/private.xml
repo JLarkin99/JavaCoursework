@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/jordi/OneDrive/Desktop/FarmWeatherClientServer/src/farmweatherclientserver/ServerUserThread.java</file>
-            <file>file:/C:/Users/jordi/OneDrive/Desktop/FarmWeatherClientServer/src/farmweatherclientserver/ServerWeatherThread.java</file>
-            <file>file:/C:/Users/jordi/OneDrive/Desktop/FarmWeatherClientServer/src/farmweatherclientserver/UserClient.java</file>
-            <file>file:/C:/Users/jordi/OneDrive/Desktop/FarmWeatherClientServer/src/farmweatherclientserver/WeatherStationClient.java</file>
-            <file>file:/C:/Users/jordi/OneDrive/Desktop/FarmWeatherClientServer/src/farmweatherclientserver/FarmWeatherServer.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

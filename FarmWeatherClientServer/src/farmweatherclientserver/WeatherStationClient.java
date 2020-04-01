@@ -8,6 +8,7 @@ package farmweatherclientserver;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -18,20 +19,30 @@ public class WeatherStationClient {
     
     //GPS LOCATION, IMPLEMENT LATER
     public static void main(String[] args) throws IOException {
-        ObjectOutputStream oos = null;
-        ObjectInputStream ois = null;
-        Socket server = new Socket("localhost",9091);
+        Socket server = new Socket("localhost",9090);
         System.out.println("connected to" + server.getInetAddress());
+        DataInputStream inFromServer = new DataInputStream(server.getInputStream());
         
-        //send weatherstation object to thread
-        //oos.writeObject(new WeatherStation());
-        
+        DataOutputStream outToServer = new DataOutputStream(server.getOutputStream());
+        System.out.println("sending data type");
+        //Tell server handler that this is a weather client
+        outToServer.writeInt(1);
+        System.out.println("sent data type");
+        String text = inFromServer.readUTF();
+        try {
+            System.out.println(text);
+        TimeUnit.SECONDS.sleep(10);
+        }
+        catch(InterruptedException ex)
+        {
+            
+        }
         server.close();
         System.out.println("disconnected");
     
     }
 }
-
+// Currently unimplemented class to do with Weather station data
 class WeatherStation {
     double temperature;
     int humidity;

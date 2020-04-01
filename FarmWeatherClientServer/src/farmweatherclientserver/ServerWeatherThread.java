@@ -20,19 +20,16 @@ public class ServerWeatherThread extends Thread {
     socket = weatherSocket;
     }
     public void run() {
-        InputStream inp = null;
-        BufferedReader brinp = null;
-        ObjectOutputStream objOut = null;
+        
+        DataOutputStream out = null;
         try {
-            inp = socket.getInputStream();
-            brinp = new BufferedReader(new InputStreamReader(inp));
-            objOut = new ObjectOutputStream(socket.getOutputStream());
+            //connect to the client and say hello
+            out = new DataOutputStream(socket.getOutputStream());
+            
+            out.writeUTF("Server says hello, Weather Station!");
         } catch (IOException e) {
             return;
         }
-        
-        //recieve weather station object from client
-        //store object in server list
         
     }
 }

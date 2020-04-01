@@ -10,7 +10,6 @@ package farmweatherclientserver;
  * @author N0812181
  */
 import java.io.*;
-import java.util.*;
 import java.net.*;
 
 public class ServerUserThread extends Thread {
@@ -20,13 +19,13 @@ public class ServerUserThread extends Thread {
     socket = clientSocket;
     }
     public void run() {
-        InputStream inp = null;
-        BufferedReader brinp = null;
+        //connect to the client and say hello
         DataOutputStream out = null;
         try {
-            inp = socket.getInputStream();
-            brinp = new BufferedReader(new InputStreamReader(inp));
+            
             out = new DataOutputStream(socket.getOutputStream());
+            
+            out.writeUTF("Server says hello,User!");
         } catch (IOException e) {
             return;
         }
