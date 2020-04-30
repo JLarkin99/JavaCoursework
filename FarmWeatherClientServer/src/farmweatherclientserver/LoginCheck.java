@@ -14,9 +14,10 @@ import java.util.Scanner;
 public class LoginCheck {
 
     private static Scanner newUser;
-
+    
+    //Made redundant by login gui
     Boolean userLogin() {
-    File filePath = new File("C:\\Users\\Fernando\\Documents\\Year 2\\Systems Software\\FarmWeatherClientServer\\src\\farmweatherclientserver\\Users.txt");
+    File filePath = new File("Users.txt");
     
     Scanner userDetails = new Scanner(System.in);
     
@@ -29,29 +30,29 @@ public class LoginCheck {
     return userVerify(username, password, filePath);
     }
     
-    public static Boolean userVerify(String username, String password, File filePath){
+    public Boolean userVerify(String username, String password, File filePath){
         String checkUsername;
         String checkPassword;
         Boolean isCorrect = false;
         
         try{
         
-        newUser = new Scanner(filePath);
-        newUser.useDelimiter(",|\\n");
-        
-        while(!isCorrect && newUser.hasNext())
-        {
-            checkUsername = newUser.next();
-            checkPassword = newUser.next();
+            newUser = new Scanner(filePath);
+            newUser.useDelimiter(",|\\n");
             
-            if(checkUsername.trim().equals(username) && checkPassword.trim().equals(password))
+            while(!isCorrect && newUser.hasNext())
             {
-                isCorrect = true;
+                checkUsername = newUser.next();
+                checkPassword = newUser.next();
+                
+                if(checkUsername.equals(username) && checkPassword.equals(password))
+                {
+                    isCorrect = true;               
+                }
+
             }
-            
-        }
-        newUser.close();
-        
+            newUser.close();
+
         }
         catch(FileNotFoundException e)
         {

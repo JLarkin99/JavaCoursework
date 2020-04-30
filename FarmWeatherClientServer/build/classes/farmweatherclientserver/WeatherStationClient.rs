@@ -1,0 +1,2 @@
+farmweatherclientserver.WeatherStationClient
+farmweatherclientserver.WeatherStation
