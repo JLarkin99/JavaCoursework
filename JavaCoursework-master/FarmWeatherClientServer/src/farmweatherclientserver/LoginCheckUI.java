@@ -168,7 +168,11 @@ public class LoginCheckUI extends javax.swing.JFrame {
         password = passwordField.getText();
         userExists = loginCheck.userVerify(username, password, filePath);
         if (userExists)
+        {
             message.setText("Welcome back " + username + "!");
+            UserClientUI userClient = new UserClientUI();
+            userClient.main();
+        }
         else
         {
             message.setForeground(Color.red);
