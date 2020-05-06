@@ -24,7 +24,8 @@ public class FarmWeatherServer {
     static final int CLIENTPORT = 9090;
     static int clientCounter = 0;
     //To do: implement adding weather stations to list
-    List<WeatherStationClient> weatherList = new ArrayList<WeatherStationClient> ();
+    public static List<WeatherStation> weatherList = new ArrayList<WeatherStation> ();
+    public static int StationCount = 0;
     //list of weather stations (as objects or their sockets?)
     
     public static void main(String[] args) throws IOException {
@@ -40,7 +41,7 @@ public class FarmWeatherServer {
         while(true){
             clientSocket = client.accept();
             // call server socket handler
-                new ServerSocketHandler(clientSocket).run();
+                new ServerSocketHandler(clientSocket).start();
                 
                 // confirms connection is a new one
                 clientCounter += 1;

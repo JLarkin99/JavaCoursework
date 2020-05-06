@@ -11,6 +11,7 @@ package farmweatherclientserver;
  */
 import java.io.*;
 import java.net.*;
+import farmweatherclientserver.FarmWeatherServer;
 
 public class ServerUserThread extends Thread {
     protected Socket socket;
@@ -21,11 +22,20 @@ public class ServerUserThread extends Thread {
     public void run() {
         //connect to the client and say hello
         DataOutputStream out = null;
+        DataInputStream in = null;
         try {
             
             out = new DataOutputStream(socket.getOutputStream());
             
-            out.writeUTF("Server says hello,User!");
+            //out.writeUTF("Server says hello,User!");
+            out.writeUTF(" there are " + FarmWeatherServer.weatherList.size() + " connected stations, please select the number to download" );
+            
+            in = new DataInputStream(socket.getInputStream());
+            String opt = in.readUTF();
+            int option = Integer.parseInt(opt);
+            System.out.println(option);
+            out.writeUTF(FarmWeatherServer.weatherList.get(option-48).getStatistics());
+            
         } catch (IOException e) {
             return;
         }

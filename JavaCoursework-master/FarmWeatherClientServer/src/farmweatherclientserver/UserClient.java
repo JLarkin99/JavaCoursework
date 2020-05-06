@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
 
+
 /**
  *
  * @author N0812181
@@ -30,9 +31,18 @@ public class UserClient {
         System.out.println("sent data type");
         //read and print text from server
         String text = inFromServer.readUTF();
+        System.out.println(text);
+        
+        int option = System.in.read();
+        
+        outToServer.writeUTF(String.valueOf(option));
+        String stats = inFromServer.readUTF();
+        System.out.print(stats);
+        
+        
         try {
             
-            System.out.println(text);
+            
             //stop process for 10 seconds
         TimeUnit.SECONDS.sleep(10);
         }
