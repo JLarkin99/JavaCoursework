@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package farmweatherclientserver;
-
+import farmweatherclientserver.FarmWeatherServer;
+import java.io.*;
 /**
  *
  * @author jordi
@@ -14,8 +15,17 @@ public class ServerUI extends javax.swing.JFrame {
     /**
      * Creates new form ServerUI
      */
+    FarmWeatherServer serverBackend;
+    
+    
     public ServerUI() {
+        serverBackend = new FarmWeatherServer();
+        serverBackend.start();
+        
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -44,7 +54,7 @@ public class ServerUI extends javax.swing.JFrame {
         jLabel1.setText("Users Conncected:");
 
         userList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = serverBackend.getUsers();
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -78,7 +88,7 @@ public class ServerUI extends javax.swing.JFrame {
         jLabel2.setText("Weather Stations Connected:");
 
         stationList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = serverBackend.getConnectedStations();
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -126,15 +136,14 @@ public class ServerUI extends javax.swing.JFrame {
                 .addGap(0, 183, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap(183, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updateClientsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(updateClientsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,6 +165,17 @@ public class ServerUI extends javax.swing.JFrame {
 
     private void updateClientsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateClientsButtonActionPerformed
         // TODO add your handling code here:
+        stationList.setModel(new javax.swing.AbstractListModel<String>() {
+    String[] strings = serverBackend.getConnectedStations();
+    public int getSize() { return strings.length; }
+    public String getElementAt(int i) { return strings[i]; }
+});
+        
+        userList.setModel(new javax.swing.AbstractListModel<String>() {
+    String[] strings = serverBackend.getUsers();
+    public int getSize() { return strings.length; }
+    public String getElementAt(int i) { return strings[i]; }
+});
     }//GEN-LAST:event_updateClientsButtonActionPerformed
 
     /**

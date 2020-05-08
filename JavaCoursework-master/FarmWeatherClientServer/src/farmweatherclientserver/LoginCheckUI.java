@@ -170,7 +170,7 @@ public class LoginCheckUI extends javax.swing.JFrame {
         if (userExists)
         {
             message.setText("Welcome back " + username + "!");
-            UserClientUI userClient = new UserClientUI();
+            UserClientUI userClient = new UserClientUI(username);
             userClient.main();
         }
         else

@@ -32,6 +32,11 @@ public class ServerUserThread extends Thread {
     }
     public void run() {
         //connect to the client and say hello
+        try{
+        String name = in.readUTF();
+        FarmWeatherServer.nameList.add(name);
+        }
+        catch(IOException e){}
         
         while(true){
                 waitForData();

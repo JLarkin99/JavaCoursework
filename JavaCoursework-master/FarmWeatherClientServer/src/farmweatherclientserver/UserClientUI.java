@@ -14,13 +14,14 @@ import java.util.*;
 public class UserClientUI extends javax.swing.JFrame {
     public String[] connectedStations = new String[] {"A","B","C"};
     UserClient clientBackend ;
+    
     /**
      * Creates new form UserClientUI
      */
-    public UserClientUI() {
+    public UserClientUI(String username) {
         try{
                     System.out.println("client initialised");
-        clientBackend = new UserClient();
+        clientBackend = new UserClient(username);
         clientBackend.getConnectedStations();
         connectedStations = clientBackend.connectedStations;
         }
@@ -242,7 +243,7 @@ public class UserClientUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserClientUI().setVisible(true);
+                setVisible(true);
                 
             }
         });

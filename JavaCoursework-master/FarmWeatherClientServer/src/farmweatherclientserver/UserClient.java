@@ -8,6 +8,7 @@ package farmweatherclientserver;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.TimeUnit;
+
 import java.util.*;
 
 /**
@@ -18,14 +19,16 @@ public class UserClient {
     Socket server = null;
     ObjectInputStream objectIn = null;
     int choice = 0;
+    String Username;
     //public int currentStationIndex = 0;
     List<Integer> currentStats = new ArrayList<Integer>();
     public String[] connectedStations = new String[] {"A","B","C"};
     
     
-    public UserClient() throws IOException {
-        boolean waiting = true;
+    public UserClient(String name) throws IOException {
         
+        boolean waiting = true;
+        Username = name;
         while(waiting){
         //socket that the client connects to
         try{
@@ -46,6 +49,8 @@ public class UserClient {
         System.out.println("sending data type");
         outToServer.writeInt(0);
         System.out.println("sent data type");
+        
+        outToServer.writeUTF(Username);
         
         //read and print text from server
 //        String text = inFromServer.readUTF();
