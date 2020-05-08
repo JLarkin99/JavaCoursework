@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class WeatherStationClient {
     
+    
     //GPS LOCATION, IMPLEMENT LATER
     public static void main(String[] args) throws IOException {
        boolean waiting = true;
@@ -26,6 +27,7 @@ public class WeatherStationClient {
            try{
                server = new Socket("localhost",9090);
                waiting = false;
+               
            }
            catch(ConnectException e){
                
@@ -56,9 +58,12 @@ public class WeatherStationClient {
         objectOut.writeObject(ws);
         while(true){
         try {
-            
-        TimeUnit.SECONDS.sleep(9);
+            //reset output stream cache so refreshed data is sent
+        objectOut.reset();    
+        TimeUnit.SECONDS.sleep(5);
         ws.generateNewData();
+        System.out.println(ws.getStatistics());
+
         objectOut.writeObject(ws);
         
         }

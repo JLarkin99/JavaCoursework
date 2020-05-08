@@ -195,7 +195,7 @@ public class UserClientUI extends javax.swing.JFrame {
         List<Integer> data = clientBackend.getDataFromServer();
         
         dataList.setModel(new javax.swing.AbstractListModel<String>() {
-    String[] strings = { "Temp: " + data.get(0), "Humidity: " + data.get(1),"Wind Force:" + data.get(2), "Pressure:" + data.get(3) };
+    String[] strings = { "Temp: " + data.get(0) + " C", "Humidity: " + data.get(1) + " g.kg-1 ","Wind Force: " + data.get(2) +" KM/s", "Pressure: " + data.get(3) + " Pa" };
     public int getSize() { return strings.length; }
     public String getElementAt(int i) { return strings[i]; }
 });

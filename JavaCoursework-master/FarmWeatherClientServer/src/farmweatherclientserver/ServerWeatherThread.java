@@ -40,9 +40,10 @@ public class ServerWeatherThread extends Thread {
             while(reading){
             try{
             ws = (WeatherStation) objectIn.readObject();
+            
             }
             catch(ClassNotFoundException e){
-                
+                System.out.println("class not found exception");
             }
             //If Ids match, replace weather station rather than append
             boolean replaceFlag = false;
