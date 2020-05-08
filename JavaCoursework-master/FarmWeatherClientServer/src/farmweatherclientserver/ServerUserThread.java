@@ -11,34 +11,80 @@ package farmweatherclientserver;
  */
 import java.io.*;
 import java.net.*;
+import java.util.*;
 import farmweatherclientserver.FarmWeatherServer;
+import farmweatherclientserver.WeatherStation;
 
 public class ServerUserThread extends Thread {
     protected Socket socket;
     
+    DataOutputStream out = null;
+    DataInputStream in = null;
+    ObjectOutputStream objectOut = null; 
+    
     public ServerUserThread(Socket clientSocket){
     socket = clientSocket;
+    try{
+    in = new DataInputStream(socket.getInputStream());
+    out = new DataOutputStream(socket.getOutputStream());
+    objectOut = new ObjectOutputStream(socket.getOutputStream());}
+    catch(IOException e){}
     }
     public void run() {
         //connect to the client and say hello
-        DataOutputStream out = null;
-        DataInputStream in = null;
-        try {
+        
+        while(true){
+                waitForData();
+            }
+//        try {
+//            //handshake procedure START
+//            
+//            //out.writeUTF("Server says hello,User!");
+//            //System.out.println("about to send utf");
+//            //out.writeUTF(" there are " + FarmWeatherServer.weatherList.size() + " connected stations, please select the number to download" );
+//            //handshake procedure END
+//            
+//            while(true){
+//                waitForData();
+//            }
+//            
+////            in = new DataInputStream(socket.getInputStream());
+////            String opt = in.readUTF();
+////            int option = Integer.parseInt(opt);
+////            System.out.println(option);
+////            objectOut.writeObject(FarmWeatherServer.weatherList.get(option-48).getStatistics());
+//            
+//        } catch () {
+//            return;
+//        }
+    }
+    
+    void waitForData() {
+        
+        try{
+        System.out.println("waiting for request"); 
+        //to send connected stations
+        boolean choice = in.readBoolean();
+        if(choice){
+            List<Integer> stations = new ArrayList<Integer>();
+            //send stations
             
-            out = new DataOutputStream(socket.getOutputStream());
+            for(WeatherStation ws: FarmWeatherServer.weatherList ){
+                stations.add(ws.getID());
+            }
             
-            //out.writeUTF("Server says hello,User!");
-            out.writeUTF(" there are " + FarmWeatherServer.weatherList.size() + " connected stations, please select the number to download" );
-            
-            in = new DataInputStream(socket.getInputStream());
-            String opt = in.readUTF();
-            int option = Integer.parseInt(opt);
-            System.out.println(option);
-            out.writeUTF(FarmWeatherServer.weatherList.get(option-48).getStatistics());
-            
-        } catch (IOException e) {
-            return;
+            objectOut.writeObject(stations);
         }
+        
+        else{
+        // to send stats
+        String opt = in.readUTF();
+        int option = Integer.parseInt(opt);
+        System.out.println(option);
+        objectOut.writeObject(FarmWeatherServer.weatherList.get(option).getStatistics());
+        }
+        } catch(IOException e){}
+        
     }
     
 }

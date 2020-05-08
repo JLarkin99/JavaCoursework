@@ -37,12 +37,12 @@ public class ServerSocketHandler extends Thread {
             //if user client run user thread
             if(serverType == 0){
                 System.out.println("choice 0 has been made");
-                new ServerUserThread(socket).run();
+                new ServerUserThread(socket).start();
             }
             //if weather client run weather thread
             else if (serverType == 1){
                 System.out.println("choice 1");
-                new ServerWeatherThread(socket).run();
+                new ServerWeatherThread(socket).start();
             }
             else{};
     }

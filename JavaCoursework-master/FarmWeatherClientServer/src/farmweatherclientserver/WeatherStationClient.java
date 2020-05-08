@@ -74,7 +74,7 @@ public class WeatherStationClient {
 }
 
 class WeatherStation implements Serializable{
-    double temperature;
+    int temperature;
     int humidity;
     int windforce;
     int pressure;
@@ -95,12 +95,19 @@ class WeatherStation implements Serializable{
                 
                 generateNewData();
             }
-    public String getStatistics()
+    
+    //ORDER IS TEMP, HUMIDITY, WINDFORCE, PRESSURE
+    public List<Integer> getStatistics()
     {
-        return ("temperature is " + temperature +
-                "\n humidity is " + humidity +
-                "\n windforce is " + windforce +
-                "\n pressure is " + pressure);
+        List<Integer> stats = new ArrayList<Integer>();
+        stats.add(temperature);
+        stats.add(humidity);
+        stats.add(windforce);
+        stats.add(pressure);
+        
+        
+        
+        return stats;
     }
     
     public void generateNewData(){
